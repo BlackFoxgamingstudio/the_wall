@@ -21,8 +21,8 @@
 
 	function post_message($post, $session) {
 		if(!empty($post['message']) && isset($session['user_id'])) {
-			$query = "INSERT INTO messages (messages.user_id, messages.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$post['message']}', NOW(), NOW())";
-			var_dump($query);
+			$message = escape_this_string($post['message']);
+			$query = "INSERT INTO messages (messages.user_id, messages.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
 			run_mysql_query($query);
 			$_SESSION['success_message'] = "Your message was added successfully!";
 			header('location: wall.php');

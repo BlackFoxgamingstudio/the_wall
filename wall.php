@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	require('new-connection.php');
 	if(!isset($_SESSION['logged_in'])) {
 		$_SESSION['errors'][] = "Oops! You have to be logged in to view this page.";
 			header('location: index.php');
@@ -22,7 +23,6 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	
 	<div class="header">
 		<h3>Coding Dojo Wall</h3>
 		<p> Welcome <?php echo $_SESSION['first_name']; ?></p>
@@ -35,6 +35,16 @@
 			<input type="hidden" name="action" value="post_message">
 			<button class="align-right" type="submit">Post a message</button>
 		</form>
+		<!-- Display existing messages -->
+		<?php 
+			$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, messages.message AS message, DATE_FORMAT(messages.created_at,'%h:%i %p %M %e %Y') AS created_at FROM users LEFT JOIN messages ON users.id = messages.user_id ORDER BY created_at DESC";
+			$messages = fetch_all($query);
+			foreach ($messages as $value) {
+				echo "<div class='messages'><h4> {$value['user_name']} - {$value['created_at']} </h4>";
+				echo "<p class='message'> {$value['message']} </p></div>";
+			}
+
+		?>
 	</div>
 </body>
 </html>

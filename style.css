@@ -93,3 +93,11 @@ button {
 	text-align: center;
 	color: seagreen;
 }
+div.messages {
+	background: seashell;
+	margin: 10px 5px;
+	padding: 10px;
+}
+	p.message {
+		padding: 10px 10px 5px 20px;
+	}
