@@ -44,18 +44,6 @@ div.body {
 	background: #DDD;
 	padding: 50px 20px;
 }
-textarea.message {
-	border: 1px solid black;
-	width: 100%;
-	height: 80px;
-	display: block;
-	font-family: 'Roboto', sans-serif;
-}
-button.align-right {
-	margin-top: 10px;
-	margin-left: 80.5%;
-	width: 150px;
-}
 div.col-50 {
 	width: 400px;
 	display: inline-block;
@@ -66,32 +54,10 @@ div.col-50 {
 	padding: 15px;
 	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
-	min-height: 281px;
+	height: 285px;
 }
 div.left {
-	/*background: purple;*/
 	border-right: 1px solid #DDD;
-}
-div.right {
-	/*background: pink;*/
-}
-input {
-	display: block;
-	margin: 10px auto;
-	padding: 3px;
-}
-button {
-	cursor: pointer;
-	padding: 5px;
-	margin-bottom: 10px;
-}
-.error {
-	text-align: center;
-	color: indianred;
-}
-.success {
-	text-align: center;
-	color: seagreen;
 }
 div.messages {
 	background: seashell;
@@ -101,3 +67,61 @@ div.messages {
 	p.message {
 		padding: 10px 10px 5px 20px;
 	}
+div.comment {
+	margin-top: 5px;
+	margin-left: 10px;
+}
+	div.comment h5 {
+		padding-left: 11px;
+	}
+
+/*Input and Textarea Formatting*/
+input {
+	display: block;
+	margin: 10px auto;
+	padding: 3px;
+}
+textarea {
+	border: 1px solid black;
+	display: block;
+	font-family: 'Roboto', sans-serif;
+}
+textarea.message {
+	height: 80px;
+	width: 100%;
+}
+textarea.comment {
+	height: 50px;
+	width: 97%;
+	margin-left: 9px;
+}
+
+/*Button Formatting*/
+button {
+	cursor: pointer;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+button.align-right {
+	margin-top: 5px;
+	width: 150px;
+}
+div.align-right {
+	text-align: right;
+}
+div.comment div.align-right {
+	margin: 0% 1.4%;
+}
+
+/*Alerts Formatting*/
+div.alert {
+	padding-top: 7px;
+}
+.error {
+	text-align: center;
+	color: indianred;
+}
+.success {
+	text-align: center;
+	color: seagreen;
+}

@@ -15,6 +15,10 @@
 	if(isset($_POST['action']) && $_POST['action'] == 'post_message') {
 		post_message($_POST, $_SESSION);
 	}
+
+	if(isset($_POST['action']) && $_POST['action'] == 'post_comment') {
+		post_comment($_POST, $_SESSION);
+	}
  
 	function register_user($post) {
 		
@@ -82,7 +86,7 @@
 	function post_message($post, $session) {
 		if(!empty($post['message']) && isset($session['user_id'])) {
 			$message = escape_this_string($post['message']);
-			$query = "INSERT INTO messages (messages.user_id, messages.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
+			$query = "INSERT INTO messages (messages.user_id, messages.message, messages.created_at, messages.updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
 			run_mysql_query($query);
 			$_SESSION['success_message'] = "Your message was added successfully!";
 			header('location: wall.php');
@@ -95,4 +99,20 @@
 		}
 	}
 
- ?>
+	// function post_comment($post, $session) {
+	// 	if(!empty($post['comment']) && isset($session['user_id'])) {
+	// 		$comment = escape_this_string($post['comment']);
+	// 		$query = "INSERT INTO comments (comments.user_id, comments.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
+	// 		run_mysql_query($query);
+	// 		$_SESSION['success_message'] = "Your message was added successfully!";
+	// 		header('location: wall.php');
+	// 		die();
+	// 	}
+	// 	else {
+	// 		$_SESSION['errors'] = "Oops! Something went wrong. Your message wasn't posted.";
+	// 		header('location: wall.php');
+	// 		die();
+	// 	}
+	// }
+
+?>

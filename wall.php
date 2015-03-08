@@ -7,11 +7,11 @@
 			die();
 	}
 	if(isset($_SESSION['errors'])) {
-		echo "<div class='error'>{$_SESSION['errors']}</div>";
+		echo "<div class='alert error'>{$_SESSION['errors']}</div>";
 		unset($_SESSION['errors']);
 	}
 	if(isset($_SESSION['success_message'])) {
-		echo "<div class='success'>{$_SESSION['success_message']}</div>";
+		echo "<div class='alert success'>{$_SESSION['success_message']}</div>";
 		unset($_SESSION['success_message']);
 	}
 ?>
@@ -21,8 +21,13 @@
 	<meta charset="UTF-8">
 	<title>The Wall</title>
 	<link rel="stylesheet" href="style.css">
+	<!-- jQuery 1.11.2 -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <body>
+	<script>
+		$('div.alert').delay('3500').fadeOut();
+	</script>
 	<div class="header">
 		<h3>Coding Dojo Wall</h3>
 		<p> Welcome <?php echo $_SESSION['first_name']; ?>!</p>
@@ -33,7 +38,9 @@
 		<form action="proccess.php" method="post">
 			<textarea type="text" class="message" name="message"></textarea>
 			<input type="hidden" name="action" value="post_message">
-			<button class="align-right" type="submit">Post a message</button>
+			<div class="align-right">
+				<button class="align-right" type="submit">Post a message</button>
+			</div>
 		</form>
 		<!-- Display existing messages -->
 		<?php 
@@ -41,7 +48,17 @@
 			$messages = fetch_all($query);
 			foreach ($messages as $value) {
 				echo "<div class='messages'><h4> {$value['user_name']} - {$value['created_at']} </h4>";
-				echo "<p class='message'> {$value['message']} </p></div>";
+				echo "<p class='message'> {$value['message']} </p>";
+				?>
+				<div class="comment">
+					<form action="proccess.php" method="post">
+						<h5>Post a comment</h5>
+						<textarea type="text" class="comment" name="comment"></textarea>
+						<input type="hidden" name="action" value="post_comment">
+						<div class="align-right">
+							<button class="align-right" type="submit">Post a comment</button>
+						</div>
+					</form></div></div><?php
 			}
 		?>
 	</div>
