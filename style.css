@@ -1,0 +1,95 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Roboto', sans-serif;
+}
+a:hover {
+	color: blue;
+}
+div.container {
+	background: #efefef;
+	width: 800px;
+	min-height: 400px;
+	margin: 20px auto;
+	border-radius: 10px;
+}
+div.welcome {
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 10px;
+}
+div.header {
+	border-bottom: 2px solid black;
+	padding: 10px;
+}
+	div.header h3, p {
+		display: inline-block;
+		vertical-align: top;
+	}
+	div.header h3 {
+		width: 80%;
+	}
+	div.header p {
+		padding: 2px 5px 1px 2px;
+	}
+div.body {
+	max-width: 800px;
+	margin: 0 auto;
+	background: #DDD;
+	padding: 50px 20px;
+}
+textarea.message {
+	border: 1px solid black;
+	width: 100%;
+	height: 80px;
+	display: block;
+	font-family: 'Roboto', sans-serif;
+}
+button.align-right {
+	margin-top: 10px;
+	margin-left: 80.5%;
+	width: 150px;
+}
+div.col-50 {
+	width: 400px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	margin: 0 auto;
+	margin-right: -5px;
+	padding: 15px;
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	min-height: 281px;
+}
+div.left {
+	/*background: purple;*/
+	border-right: 1px solid #DDD;
+}
+div.right {
+	/*background: pink;*/
+}
+input {
+	display: block;
+	margin: 10px auto;
+	padding: 3px;
+}
+button {
+	cursor: pointer;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+.error {
+	text-align: center;
+	color: indianred;
+}
+.success {
+	text-align: center;
+	color: seagreen;
+}
