@@ -60,9 +60,9 @@ div.left {
 	border-right: 1px solid #DDD;
 }
 div.messages {
-	background: seashell;
-	margin: 10px 5px;
-	padding: 10px;
+	background: #F5F5F5;
+	margin: 15px 5px;
+	padding: 20px 10px 10px 10px;
 }
 	p.message {
 		padding: 10px 10px 5px 20px;
@@ -74,6 +74,18 @@ div.comment {
 	div.comment h5 {
 		padding-left: 11px;
 	}
+div.comments {
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border-left: 3px solid #DFDFDF;
+	padding-left: 10px;
+}
+div.align-right {
+	text-align: right;
+}
+div.comment div.align-right {
+	margin: 0% 1.4%;
+}
 
 /*Input and Textarea Formatting*/
 input {
@@ -105,12 +117,6 @@ button {
 button.align-right {
 	margin-top: 5px;
 	width: 150px;
-}
-div.align-right {
-	text-align: right;
-}
-div.comment div.align-right {
-	margin: 0% 1.4%;
 }
 
 /*Alerts Formatting*/

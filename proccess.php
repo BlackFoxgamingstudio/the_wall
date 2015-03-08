@@ -57,8 +57,12 @@
 			header('location: index.php');
 			die();
 		}
-		else { //Data is validated so can inert into database
-			$query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES ('{$post['first_name']}', '{$post['last_name']}', '{$post['email']}', '{$post['password']}', NOW(), NOW())";
+		else { //Data is validated so we can insert user info into database
+			$firstName = escape_this_string($post['first_name']);
+			$lastName = escape_this_string($post['last_name']);
+			$email = escape_this_string($post['email']);
+			$password = escape_this_string($post['password']);
+			$query = "INSERT INTO users (first_name, last_name, email, password, created_at) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$password}', NOW())";
 			$_SESSION['success_message'] = "Account successfully created";
 			run_mysql_query($query);
 			header('location: index.php');
@@ -86,7 +90,7 @@
 	function post_message($post, $session) {
 		if(!empty($post['message']) && isset($session['user_id'])) {
 			$message = escape_this_string($post['message']);
-			$query = "INSERT INTO messages (messages.user_id, messages.message, messages.created_at, messages.updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
+			$query = "INSERT INTO messages (messages.user_id, messages.message, messages.created_at) VALUES ('{$session['user_id']}', '{$message}', NOW())";
 			run_mysql_query($query);
 			$_SESSION['success_message'] = "Your message was added successfully!";
 			header('location: wall.php');
@@ -99,20 +103,20 @@
 		}
 	}
 
-	// function post_comment($post, $session) {
-	// 	if(!empty($post['comment']) && isset($session['user_id'])) {
-	// 		$comment = escape_this_string($post['comment']);
-	// 		$query = "INSERT INTO comments (comments.user_id, comments.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
-	// 		run_mysql_query($query);
-	// 		$_SESSION['success_message'] = "Your message was added successfully!";
-	// 		header('location: wall.php');
-	// 		die();
-	// 	}
-	// 	else {
-	// 		$_SESSION['errors'] = "Oops! Something went wrong. Your message wasn't posted.";
-	// 		header('location: wall.php');
-	// 		die();
-	// 	}
-	// }
+	function post_comment($post, $session) {
+		if(!empty($post['comment']) && isset($session['user_id'])) {
+			$comment = escape_this_string($post['comment']);
+			$query = "INSERT INTO comments (user_id, comment, message_id, created_at) VALUES ('{$session['user_id']}', '{$post['comment']}', '{$post['message_id']}', NOW())";
+			run_mysql_query($query);			
+			$_SESSION['success_message'] = "Yay! Your comment was added successfully!";
+			header('location: wall.php');
+			die();
+		}
+		else {
+			$_SESSION['errors'] = "Oops! Something went wrong. Your comment wasn't posted.";
+			header('location: wall.php');
+			die();
+		}
+	}
 
 ?>
