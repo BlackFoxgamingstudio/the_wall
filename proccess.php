@@ -2,37 +2,18 @@
 	session_start();
 	require('new-connection.php');
 
-	if(isset($_POST['action']) && $_POST['action'] == 'register') 
-	{
+	if(isset($_POST['action']) && $_POST['action'] == 'register') {
 		//call to function
 		register_user($_POST); 
 	}
 
-	elseif(isset($_POST['action']) && $_POST['action'] == 'login') 
-	{
+	elseif(isset($_POST['action']) && $_POST['action'] == 'login') {
 		//call to function
 		login_user($_POST);
 	}
 
-	if(isset($_POST['action']) && $_POST['action'] == 'post_message') 
-	{
+	if(isset($_POST['action']) && $_POST['action'] == 'post_message') {
 		post_message($_POST, $_SESSION);
-	}
-
-	function post_message($post, $session) {
-		if(!empty($post['message']) && isset($session['user_id'])) {
-			$message = escape_this_string($post['message']);
-			$query = "INSERT INTO messages (messages.user_id, messages.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
-			run_mysql_query($query);
-			$_SESSION['success_message'] = "Your message was added successfully!";
-			header('location: wall.php');
-			die();
-		}
-		else {
-			$_SESSION['errors'] = "Oops! Something went wrong. Your message wasn't posted.";
-			header('location: wall.php');
-			die();
-		}
 	}
  
 	function register_user($post) {
@@ -94,6 +75,22 @@
 		else {
 			$_SESSION['errors'][] = "Oops! Something went wrong! Please check your email and password and try again.";
 			header('location: index.php');
+			die();
+		}
+	}
+
+	function post_message($post, $session) {
+		if(!empty($post['message']) && isset($session['user_id'])) {
+			$message = escape_this_string($post['message']);
+			$query = "INSERT INTO messages (messages.user_id, messages.message, created_at, updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
+			run_mysql_query($query);
+			$_SESSION['success_message'] = "Your message was added successfully!";
+			header('location: wall.php');
+			die();
+		}
+		else {
+			$_SESSION['errors'] = "Oops! Something went wrong. Your message wasn't posted.";
+			header('location: wall.php');
 			die();
 		}
 	}

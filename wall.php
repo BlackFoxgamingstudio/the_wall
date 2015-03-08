@@ -25,7 +25,7 @@
 <body>
 	<div class="header">
 		<h3>Coding Dojo Wall</h3>
-		<p> Welcome <?php echo $_SESSION['first_name']; ?></p>
+		<p> Welcome <?php echo $_SESSION['first_name']; ?>!</p>
 		<a href='logout.php'><p>Logout</p></a>
 	</div>
 	<div class="body">
@@ -37,13 +37,12 @@
 		</form>
 		<!-- Display existing messages -->
 		<?php 
-			$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, messages.message AS message, DATE_FORMAT(messages.created_at,'%h:%i %p %M %e %Y') AS created_at FROM users LEFT JOIN messages ON users.id = messages.user_id ORDER BY created_at DESC";
+			$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, messages.message AS message, DATE_FORMAT(messages.created_at,'%h:%i:%s %p %M %e %Y') AS created_at FROM users LEFT JOIN messages ON users.id = messages.user_id ORDER BY created_at DESC";
 			$messages = fetch_all($query);
 			foreach ($messages as $value) {
 				echo "<div class='messages'><h4> {$value['user_name']} - {$value['created_at']} </h4>";
 				echo "<p class='message'> {$value['message']} </p></div>";
 			}
-
 		?>
 	</div>
 </body>
