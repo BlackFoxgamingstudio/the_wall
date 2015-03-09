@@ -76,6 +76,10 @@
 		if(count($user) > 0) {
 			$_SESSION['user_id'] = $user[0]['id'];
 			$_SESSION['first_name'] = $user[0]['first_name'];
+			$_SESSION['last_name'] = $user[0]['last_name'];
+			$_SESSION['user_name'] = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+			$_SESSION['member_since'] = $user[0]['created_at'];
+			$_SESSION['email'] = $user[0]['email'];
 			$_SESSION['logged_in'] = TRUE;
 			header('location: wall.php');
 			die();
@@ -106,7 +110,7 @@
 	function post_comment($post, $session) {
 		if(!empty($post['comment']) && isset($session['user_id'])) {
 			$comment = escape_this_string($post['comment']);
-			$query = "INSERT INTO comments (user_id, comment, message_id, created_at) VALUES ('{$session['user_id']}', '{$post['comment']}', '{$post['message_id']}', NOW())";
+			$query = "INSERT INTO comments (user_id, comment, message_id, created_at) VALUES ('{$session['user_id']}', '{$comment}', '{$post['message_id']}', NOW())";
 			run_mysql_query($query);			
 			$_SESSION['success_message'] = "Yay! Your comment was added successfully!";
 			header('location: wall.php');

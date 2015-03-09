@@ -22,15 +22,15 @@
 	<title>The Wall</title>
 	<link rel="stylesheet" href="style.css">
 	<!-- jQuery 1.11.2 -->
-	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <body>
 	<script>
 		$('div.alert').delay('3500').fadeOut();
 	</script>
 	<div class="header">
-		<h3>Coding Dojo Wall</h3>
-		<p> Welcome <?php echo $_SESSION['first_name']; ?>!</p>
+		<a href='wall.php'><h3>The Wall</h3></a>
+		<p> Welcome <a href="profile.php"><?= $_SESSION['first_name']; ?></a>!</p>
 		<a href='logout.php'><p>Logout</p></a>
 	</div>
 	<div class="body">
