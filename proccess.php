@@ -20,6 +20,10 @@
 		post_comment($_POST, $_SESSION);
 	}
  
+	if(isset($_POST['action']) && $_POST['action'] == 'delete_comment') {
+		delete_comment($_POST, $_SESSION);
+	}
+
 	function register_user($post) {
 		
 		$_SESSION['errors'] = array();
@@ -62,11 +66,18 @@
 			$lastName = escape_this_string($post['last_name']);
 			$email = escape_this_string($post['email']);
 			$password = escape_this_string($post['password']);
-			$query = "INSERT INTO users (first_name, last_name, email, password, created_at) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$password}', NOW())";
-			$_SESSION['success_message'] = "Account successfully created";
-			run_mysql_query($query);
-			header('location: index.php');
-			die();
+			$query = "INSERT INTO users (first_name, last_name, email, password, profile_img, created_at, updated_at) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$password}', 'user', NOW(), NOW())";
+			
+			if(run_mysql_query($query)) {
+				$_SESSION['success_message'] = "Account successfully created";
+				header('location: index.php');
+				die();
+			}
+			else {
+				$_SESSION['errors'][] = "Oops! That email address already registerd!";
+				header('location: index.php');
+				die();
+			}
 		}
 	}
 
@@ -78,6 +89,7 @@
 			$_SESSION['first_name'] = $user[0]['first_name'];
 			$_SESSION['last_name'] = $user[0]['last_name'];
 			$_SESSION['user_name'] = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+			$_SESSION['profile_img'] = $user[0]['profile_img'];
 			$_SESSION['member_since'] = $user[0]['created_at'];
 			$_SESSION['email'] = $user[0]['email'];
 			$_SESSION['logged_in'] = TRUE;
@@ -94,7 +106,7 @@
 	function post_message($post, $session) {
 		if(!empty($post['message']) && isset($session['user_id'])) {
 			$message = escape_this_string($post['message']);
-			$query = "INSERT INTO messages (messages.user_id, messages.message, messages.created_at) VALUES ('{$session['user_id']}', '{$message}', NOW())";
+			$query = "INSERT INTO messages (messages.user_id, messages.message, messages.created_at, messages.updated_at) VALUES ('{$session['user_id']}', '{$message}', NOW(), NOW())";
 			run_mysql_query($query);
 			$_SESSION['success_message'] = "Your message was added successfully!";
 			header('location: wall.php');
@@ -110,7 +122,7 @@
 	function post_comment($post, $session) {
 		if(!empty($post['comment']) && isset($session['user_id'])) {
 			$comment = escape_this_string($post['comment']);
-			$query = "INSERT INTO comments (user_id, comment, message_id, created_at) VALUES ('{$session['user_id']}', '{$comment}', '{$post['message_id']}', NOW())";
+			$query = "INSERT INTO comments (user_id, comment, message_id, created_at, updated_at) VALUES ('{$session['user_id']}', '{$comment}', '{$post['message_id']}', NOW(), NOW())";
 			run_mysql_query($query);			
 			$_SESSION['success_message'] = "Yay! Your comment was added successfully!";
 			header('location: wall.php');
@@ -123,4 +135,71 @@
 		}
 	}
 
+	 function delete_comment($post, $session) {
+		if($session['user_id'] == $post['authorization']) {
+			echo "You have the proper clearance to perform this action";
+		}
+		else {
+			echo "ACCESS DENIED!";
+		}
+	}
+
+		function randomKey() {
+		  $key = '';  
+		  for ($i=0; $i < 20 ; $i++) { 
+		  	$key = $key.rand(0,100);
+		  }
+		  return $key;
+		}
+
+		$rand = randomKey();
+		$target_dir = "uploads/";
+		$originalName = basename($_FILES["fileToUpload"]["name"]);
+		$imageFileType = pathinfo($originalName,PATHINFO_EXTENSION);
+		$target_file = $target_dir . $rand . "." . $imageFileType;
+		// $newImageName = $rand . "." . $imageFileType;
+		$uploadOk = 1;
+		// Check if image file is a actual image or fake image
+		if(isset($_POST["submit"])) {
+		    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+		    if($check !== false) {
+		        echo "File is an image - " . $check["mime"] . ".";
+		        $uploadOk = 1;
+		    } else {
+		        echo "File is not an image.";
+		        $uploadOk = 0;
+		    }
+		}
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "Sorry, file already exists.";
+		    $uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["fileToUpload"]["size"] > 500000) {
+		    echo "Sorry, your file is too large.";
+		    $uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+		&& $imageFileType != "gif" ) {
+		    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+		    $uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+		        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+		        $query = "UPDATE users SET profile_img = '$rand', users.updated_at = NOW() WHERE users.id = '{$_SESSION['user_id']}'";
+		        run_mysql_query($query);
+		        $_SESSION['profile_img'] = $rand;
+		        header('location: profile.php');
+		        die();
+		    } else {
+		        echo "Sorry, there was an error uploading your file.";
+		    }
+		}
 ?>

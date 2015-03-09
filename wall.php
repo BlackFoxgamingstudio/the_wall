@@ -29,8 +29,8 @@
 		$('div.alert').delay('3500').fadeOut();
 	</script>
 	<div class="header">
-		<a href='wall.php'><h3>The Wall</h3></a>
-		<p> Welcome <a href="profile.php"><?= $_SESSION['first_name']; ?></a>!</p>
+		<h3>Coding Dojo Wall</h3>
+		<p> Welcome <a href="profile.php"><?php echo $_SESSION['first_name']; ?></a>!</p>
 		<a href='logout.php'><p>Logout</p></a>
 	</div>
 	<div class="body">
@@ -44,7 +44,7 @@
 		</form>
 		<!-- Display existing messages -->
 		<?php 
-			$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, messages.message AS message, messages.id AS id, DATE_FORMAT(messages.created_at,'%M %e %Y %h:%i:%s %p') AS created_at FROM users LEFT JOIN messages ON users.id = messages.user_id ORDER BY created_at DESC";
+			$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, messages.message AS message, messages.id AS id, DATE_FORMAT(messages.created_at,'%M %e %Y %h:%i:%s %p') AS created_at FROM users JOIN messages ON users.id = messages.user_id ORDER BY created_at DESC";
 			$messages = fetch_all($query);
 			foreach ($messages as $message) {
 				echo "<div class='messages'><h4> Message from {$message['user_name']} ({$message['created_at']})</h4>";
@@ -56,7 +56,7 @@
 				// Fetches comments from database
 				$query = "SELECT CONCAT_WS(' ', users.first_name, users.last_name) AS user_name, comments.message_id, comments.comment, DATE_FORMAT(comments.created_at,'%M %e %Y %h:%i:%s %p') AS created_at FROM comments LEFT JOIN users ON users.id = comments.user_id WHERE comments.message_id = {$message['id']}";
 				$comments = fetch_all($query);
-				// Loops through 
+				// Loops through comments
 				foreach ($comments as $comment) {
 					echo "<div class='comments'><h4> Comment from {$comment['user_name']} ({$comment['created_at']})</h4>";
 				echo "<p class='comments'> {$comment['comment']} </p></div>";

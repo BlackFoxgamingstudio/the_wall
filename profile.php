@@ -37,8 +37,8 @@
 	<div class="body">
 		<div class="col-30">
 			<h4 class="header">Picture</h4>
-			<img class="profile-pic" src="img/user.png">
-			<p><?= $_SESSION['user_name']; ?></p>
+			<img class="profile-pic" src="uploads/<?=$_SESSION['profile_img']?>.jpg">
+			<p><a href="upload_photo.php">Change Image</a></p>
 		</div>
 		<div class="col-70">
 			<h4 class="header">Information</h4>
