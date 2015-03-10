@@ -24,6 +24,10 @@
 		delete_comment($_POST, $_SESSION);
 	}
 
+	if(isset($_POST['action']) && $_POST['action'] == 'upload_photo') {
+		upload_photo();
+	}
+
 	function register_user($post) {
 		
 		$_SESSION['errors'] = array();
@@ -136,14 +140,21 @@
 	}
 
 	 function delete_comment($post, $session) {
-		if($session['user_id'] == $post['authorization']) {
-			echo "You have the proper clearance to perform this action";
+		if($session['user_id'] == $post['authorization']) {		
+			$query = "DELETE FROM comments WHERE comment_id = '{$post['comment_id']}'";
+			run_mysql_query($query);
+			$_SESSION['success_message'] = "Great job! You deleted your comment!";
+			header('location: wall.php');
+			die();
 		}
 		else {
-			echo "ACCESS DENIED!";
+			$_SESSION['errors'] = "Oops! You can only delete your own comments!";
+			header('location: wall.php');
+			die();
 		}
 	}
 
+	function upload_photo() {
 		function randomKey() {
 		  $key = '';  
 		  for ($i=0; $i < 20 ; $i++) { 
@@ -202,4 +213,5 @@
 		        echo "Sorry, there was an error uploading your file.";
 		    }
 		}
+	}
 ?>

@@ -9,6 +9,9 @@
 body {
 	font-family: 'Roboto', sans-serif;
 }
+a {
+	text-decoration: none;
+}
 a:hover {
 	color: blue;
 }
@@ -19,14 +22,10 @@ div.container {
 	margin: 20px auto;
 	border-radius: 10px;
 }
-div.welcome {
-	text-align: center;
-	margin-bottom: 5px;
-	padding: 10px;
-}
 div.header {
-	border-bottom: 2px solid black;
-	padding: 10px;
+	padding: 15px 10px;
+	background: #415E9B;
+	color: white;
 }
 	div.header h3, p {
 		display: inline-block;
@@ -36,13 +35,28 @@ div.header {
 		width: 80%;
 	}
 	div.header p {
-		padding: 2px 5px 1px 2px;
+		padding: 2px 3px 1px 2px;
+	}
+	div.header a {
+		color: white;
+	}
+	div.header a:hover {
+		opacity: .8;
 	}
 div.body {
 	width: 800px;
 	margin: 0 auto;
-	background: #DDD;
+	background: #E9EAED;
 	padding: 50px 20px;
+}
+
+/*profile page*/
+
+h4.header {
+	background: blue;
+	color: white;
+	padding: 3px 15px;
+	text-align: left;
 }
 div.col-30, div.col-50, div.col-70 {
 	display: inline-block;
@@ -66,11 +80,12 @@ div.col-70 {
 		vertical-align: top;
 		display: inline-block;
 	}
-h4.header {
-	background: blue;
-	color: white;
-	padding: 3px 15px;
-	text-align: left;
+
+/*Landing page*/
+div.welcome {
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 5px;
 }
 div.col-50 {
 	width: 400px;
@@ -85,32 +100,64 @@ div.col-50 {
 div.left {
 	border-right: 1px solid #DDD;
 }
+
+/*The wall*/
+
 div.messages {
-	background: #F5F5F5;
+	background: #FFFFFF;
 	margin: 15px 5px;
 	padding: 20px 10px 10px 10px;
 }
 	p.message {
 		padding: 10px 10px 5px 20px;
+		display: block;
+		vertical-align: top;
 	}
-div.comment {
-	margin-top: 5px;
-	margin-left: 10px;
-}
-	div.comment h5 {
-		padding-left: 11px;
+	div.messages h4 {
+		display: inline-block;
+		color: #3B5998;
+		margin-top: 20px;
+		padding-left: 10px;
+		width: 80%;
 	}
-div.comments {
-	margin: 0px 10px 10px 10px;
-	border-left: 3px solid #DFDFDF;
-	padding-left: 10px;
+	div.messages h5 {
+		display: inline-block;
+		padding-left: 10px;
+	}
+
+div.comments-container {
+	margin: 10px 10px 0px 10px;
 }
-div.align-right {
-	text-align: right;
-}
-div.comment div.align-right {
-	margin: 0% 1.4%;
-}
+	div.comments-container h5 {
+		padding-left: 15px;
+		padding-bottom: 5px;
+	}
+	div.comments-container div.align-right {
+		margin-top: 5px;
+		margin-right: 5px;
+	}
+	div.align-right {
+		text-align: right;
+	}
+	div.comments-box {
+		background: #E9EAED;
+		margin-bottom: 10px;
+		margin-left: 15px;
+		border-left: 3px solid #DFDFDF;
+	}
+		div.comments-box p {
+			min-width: 560px;
+		}
+		div.comments-box .btn-delete {
+			background: none;
+			border: none;
+			color: salmon;
+			margin-top: 6px;
+		}
+		div.comments-box form {
+			display: inline-block;
+			vertical-align: top;
+		}
 
 /*Input and Textarea Formatting*/
 input {
@@ -130,7 +177,7 @@ textarea.message {
 textarea.comment {
 	height: 50px;
 	width: 97%;
-	margin-left: 9px;
+	margin-left: 14px;
 }
 
 /*Button Formatting*/
@@ -147,13 +194,14 @@ button.align-right {
 /*Alerts Formatting*/
 div.alert {
 	padding-top: 7px;
+	padding-bottom: 5px;
+	text-align: center;
 }
 .error {
-	text-align: center;
 	color: indianred;
+
 }
 .success {
-	text-align: center;
 	color: seagreen;
 }
 
@@ -163,4 +211,11 @@ div.alert {
 	width: 125px;
 	height: 125px;
 	margin: 20px auto 5px auto;
+}
+.tiny {
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	vertical-align: top;
+	margin-left: 20px;
 }

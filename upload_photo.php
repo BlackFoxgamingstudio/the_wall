@@ -9,6 +9,7 @@
     <form action="proccess.php" method="post" enctype="multipart/form-data">
         <input type="file" name="fileToUpload">
         <input type="submit" value="Submit">
+        <input type="hidden" name="action" value="upload_photo">
     </form>
 </body>
 </html>

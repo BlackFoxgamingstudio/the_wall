@@ -30,7 +30,7 @@
 	</script>
 	<div class="header">
 		<a href='wall.php'><h3>The Wall</h3></a>
-		<p> Hello <a href="profile.php"><?= $_SESSION['first_name']; ?></a>!</p>
+		<p> Hello <a href="profile.php"><?= $_SESSION['first_name']; ?></a></p>
 		<a href='logout.php'><p>Logout</p></a>
 		<a href='wall.php'><p>Post</p></a>
 	</div>
