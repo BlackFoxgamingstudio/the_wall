@@ -9,21 +9,24 @@
 	<title>Login/Registration</title>
 	<link rel="stylesheet" href="style.css">
 	<!-- jQuery 1.11.2 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>	
+	<script src="jquery-1.11.0.min.js"></script>	
 </head>
 <body>
-	<?php 
-		if(isset($_SESSION['errors'])) {
-			foreach ($_SESSION['errors'] as $error) {
-				echo "<div class='alert error'><p>{$error}</p></div>";
-			}
-			unset($_SESSION['errors']);
+<?php 
+	if(isset($_SESSION['errors'])) 
+	{
+		foreach ($_SESSION['errors'] as $error) 
+		{
+			echo "<div class='alert error'><p>{$error}</p></div>";
 		}
-		if(isset($_SESSION['success_message'])) {
-			echo "<div class='alert success'>{$_SESSION['success_message']}</div>";
-			unset($_SESSION['success_message']);
-		}
-	?>
+		unset($_SESSION['errors']);
+	}
+	if(isset($_SESSION['success_message'])) 
+	{
+		echo "<div class='alert success'>{$_SESSION['success_message']}</div>";
+		unset($_SESSION['success_message']);
+	}
+?>
 	<script>
 		$('div.alert').delay('3500').fadeOut();
 	</script>

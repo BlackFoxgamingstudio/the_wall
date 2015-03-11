@@ -1,16 +1,19 @@
 <?php 
 	session_start();
 	require('new-connection.php');
-	if(!isset($_SESSION['logged_in'])) {
+	if(!isset($_SESSION['logged_in'])) 
+	{
 		$_SESSION['errors'][] = "Oops! You have to be logged in to view this page.";
 			header('location: index.php');
-			die();
+		die();
 	}
-	if(isset($_SESSION['errors'])) {
+	if(isset($_SESSION['errors'])) 
+	{
 		echo "<div class='alert error'>{$_SESSION['errors']}</div>";
 		unset($_SESSION['errors']);
 	}
-	if(isset($_SESSION['success_message'])) {
+	if(isset($_SESSION['success_message'])) 
+	{
 		echo "<div class='alert success'>{$_SESSION['success_message']}</div>";
 		unset($_SESSION['success_message']);
 	}
@@ -22,7 +25,7 @@
 	<title>The Wall</title>
 	<link rel="stylesheet" href="style.css">
 	<!-- jQuery 1.11.2 -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="jquery-1.11.0.min.js"></script>
 </head>
 <body>
 	<script>
@@ -51,7 +54,6 @@
 			<label>Email:</label>
 			<p><?= $_SESSION['email']; ?></p>
 		</div>
-	</div>
 	</div>
 </body>
 </html>
